@@ -25,4 +25,6 @@ int main(int argc, char *argv[])
             print_text(argc, argv);
         }
     }
+
+    return 1;
 }

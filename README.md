@@ -62,17 +62,16 @@ Learn about process control and system info.
 
 ## ⚙️ How to Build
 
-Each command has its own `Makefile`. To build, navigate into the command’s folder and run:
+Each command has its own `Makefile`. To build, run the shell script with:
 
 ```bash
-make
+sh build_all.sh
 ```
 
-For example, to build **echo**:
+then, to try **echo**:
 ```bash
-cd Stage_1/Echo
-make
-./bin/my_echo "Hello World!"
+cd Final_Builds/
+./my_echo "Hello World!"
 ```
 
 ---
@@ -92,11 +91,6 @@ When a command is completed, its executable is stored in:
 
 ```
 Final_Builds/
-├── my_cat
-├── my_echo
-├── my_false
-├── my_true
-└── my_yes
 ```
 
 This way you can run all finished commands from one place.

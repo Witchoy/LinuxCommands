@@ -1,42 +1,57 @@
 #include "head.h"
 
+int isnumber(char *numbers)
+{
+    for (size_t i = 0; i < strlen(numbers); i++)
+    {
+        if (!isdigit(numbers[i]))
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
-    if (argc == 1)
+    if (argc <= 1)
     {
-        char user_input[2048];
-        // Use of fgets() cause I was having trouble with scanf()
-        while (fgets(user_input, sizeof(user_input), stdin) != NULL)
-        {
-            printf("%s", user_input);
-        }
+        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+        return 1;
     }
 
+    char *option = argv[1];
+    int line_number = LINE_NUMBER;
     char *filename = argv[1];
-    FILE *file = fopen(filename, "r");
 
-    if (file != NULL)
+    if ((strcmp(option, "-n") == 0))
     {
-        char line[2048];
-
-        for (int i = 0; i < 10; i++)
+        if (isnumber(argv[2]))
         {
-            if (fgets(line, sizeof line, file) != NULL)
-            {
-                printf("%s", line);
-            }
-            else
-            {
-                i = 10;
-            }
+            fprintf(stderr, "Invalid number of lines: %s\n", argv[2]);
+            return 1;
         }
-
-        fclose(file);
+        line_number = atoi(argv[2]);
+        filename = argv[3];
     }
-    else
+
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
     {
         perror(filename);
         return 1;
+    }
+
+    char line[2048];
+    int count = 1;
+    while (fgets(line, sizeof line, file) != NULL)
+    {
+        printf("%s", line);
+        if (count == line_number)
+        {
+            return 0;
+        }
+        count++;
     }
 
     return 0;

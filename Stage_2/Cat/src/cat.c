@@ -8,21 +8,20 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    int fd = open(argv[1], O_RDONLY);
-    if (fd == -1) {
-        perror("Error opening file");
+    char *filename = argv[1];
+
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        perror(filename);
         return 1;
     }
 
-    char buffer[1024];
-
-    size_t bytes_read;
-
-    while ((bytes_read = read(fd, buffer, sizeof(buffer))) > 0) {
-        buffer[bytes_read] = '\0'; // Manually terminate the buffer before printing to prevent unwanted characters
-        printf("%s \n", buffer);
+    char line[2048];
+    while (fgets(line, sizeof line, file) != NULL)
+    {
+        printf("%s", line);
     }
 
-    close(fd);
     return 0;
 }

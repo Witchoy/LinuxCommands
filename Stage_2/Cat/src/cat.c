@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 
     char *filename = argv[1];
 
+    // Open file
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    // Read File
     char line[2048];
     while (fgets(line, sizeof line, file) != NULL)
     {

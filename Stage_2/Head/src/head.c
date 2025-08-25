@@ -1,5 +1,6 @@
 #include "head.h"
 
+// Test if a char is a number
 int isnumber(char *numbers)
 {
     for (size_t i = 0; i < strlen(numbers); i++)
@@ -24,6 +25,7 @@ int main(int argc, char *argv[])
     int line_number = LINE_NUMBER;
     char *filename = argv[1];
 
+    // Seek for an option
     if ((strcmp(option, "-n") == 0))
     {
         if (isnumber(argv[2]))
@@ -35,6 +37,7 @@ int main(int argc, char *argv[])
         filename = argv[3];
     }
 
+    // Open file
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
@@ -42,6 +45,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    // Read the n first line
     char line[2048];
     int count = 1;
     while (fgets(line, sizeof line, file) != NULL)
